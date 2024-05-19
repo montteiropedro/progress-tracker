@@ -14,7 +14,7 @@ defmodule ProgressTrackerWeb.MangaLiveTest do
   }
   @invalid_attrs %{
     title: nil, description: nil, chapters: "invalid_chapters", volumes: "invalid_volumes",
-    publishing_start: "invalid_date", publishing_end: "invalid_date", status: nil
+    publishing_start: "invalid_date", publishing_end: "invalid_date", status: :publishing
   }
 
   defp create_manga(_) do
@@ -26,14 +26,14 @@ defmodule ProgressTrackerWeb.MangaLiveTest do
     setup [:create_manga]
 
     test "lists all mangas", %{conn: conn, manga: manga} do
-      {:ok, _index_live, html} = live(conn, ~p"/mangas")
+      {:ok, _index_live, html} = live(conn, ~p"/")
 
       assert html =~ "Listing Mangas"
       assert html =~ manga.title
     end
 
     test "saves new manga", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/mangas")
+      {:ok, index_live, _html} = live(conn, ~p"/")
 
       assert index_live |> element("a", "New Manga") |> render_click() =~
                "New Manga"
@@ -48,7 +48,7 @@ defmodule ProgressTrackerWeb.MangaLiveTest do
              |> form("#manga-form", manga: @create_attrs)
              |> render_submit()
 
-      assert_patch(index_live, ~p"/mangas")
+      assert_patch(index_live, ~p"/")
 
       html = render(index_live)
       assert html =~ "Manga created successfully"
@@ -56,7 +56,7 @@ defmodule ProgressTrackerWeb.MangaLiveTest do
     end
 
     test "updates manga in listing", %{conn: conn, manga: manga} do
-      {:ok, index_live, _html} = live(conn, ~p"/mangas")
+      {:ok, index_live, _html} = live(conn, ~p"/")
 
       assert index_live |> element("#mangas-#{manga.id} a", "Edit") |> render_click() =~
                "Edit Manga"
@@ -71,7 +71,7 @@ defmodule ProgressTrackerWeb.MangaLiveTest do
              |> form("#manga-form", manga: @update_attrs)
              |> render_submit()
 
-      assert_patch(index_live, ~p"/mangas")
+      assert_patch(index_live, ~p"/")
 
       html = render(index_live)
       assert html =~ "Manga updated successfully"
@@ -79,7 +79,7 @@ defmodule ProgressTrackerWeb.MangaLiveTest do
     end
 
     test "deletes manga in listing", %{conn: conn, manga: manga} do
-      {:ok, index_live, _html} = live(conn, ~p"/mangas")
+      {:ok, index_live, _html} = live(conn, ~p"/")
 
       assert index_live |> element("#mangas-#{manga.id} a", "Delete") |> render_click()
       refute has_element?(index_live, "#mangas-#{manga.id}")

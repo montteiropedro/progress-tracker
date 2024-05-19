@@ -20,9 +20,14 @@ defmodule ProgressTrackerWeb.MangaLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:synopsis]} type="text" label="Synopsis" />
+        <.input field={@form[:description]} type="text" label="description" />
         <.input field={@form[:chapters]} type="number" label="Chapters" />
         <.input field={@form[:volumes]} type="number" label="Volumes" />
+        <.input field={@form[:publishing_start]} type="date" label="Publishing Start" />
+        <.input field={@form[:publishing_end]} type="date" label="Publishing End" />
+        <.input field={@form[:status]} type="select" label="Select"
+          options={[Publishing: "publishing", Finished: "finished"]}
+        />
         <:actions>
           <.button phx-disable-with="Saving...">Save Manga</.button>
         </:actions>
