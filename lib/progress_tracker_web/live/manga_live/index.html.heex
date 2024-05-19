@@ -1,0 +1,46 @@
+<.header>
+  Listing Mangas
+  <:actions>
+    <.link patch={~p"/mangas/new"}>
+      <.button>New Manga</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="mangas"
+  rows={@streams.mangas}
+  row_click={fn {_id, manga} -> JS.navigate(~p"/mangas/#{manga}") end}
+>
+  <:col :let={{_id, manga}} label="Title"><%= manga.title %></:col>
+  <:col :let={{_id, manga}} label="Description"><%= manga.description %></:col>
+  <:col :let={{_id, manga}} label="Chapters"><%= manga.chapters %></:col>
+  <:col :let={{_id, manga}} label="Volumes"><%= manga.volumes %></:col>
+  <:col :let={{_id, manga}} label="Published"><%= manga.publishing_start %> to <%= manga.publishing_end %></:col>
+  <:col :let={{_id, manga}} label="Status"><%= manga.status %></:col>
+  <:action :let={{_id, manga}}>
+    <div class="sr-only">
+      <.link navigate={~p"/mangas/#{manga}"}>Show</.link>
+    </div>
+    <.link patch={~p"/mangas/#{manga}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, manga}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: manga.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="manga-modal" show on_cancel={JS.patch(~p"/")}>
+  <.live_component
+    module={ProgressTrackerWeb.MangaLive.FormComponent}
+    id={@manga.id || :new}
+    title={@page_title}
+    action={@live_action}
+    manga={@manga}
+    patch={~p"/"}
+  />
+</.modal>

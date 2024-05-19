@@ -1,0 +1,29 @@
+<.header>
+  Manga <%= @manga.id %>
+  <:subtitle>This is a manga record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/mangas/#{@manga}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit manga</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Title"><%= @manga.title %></:item>
+  <:item title="Description"><%= @manga.description %></:item>
+  <:item title="Chapters"><%= @manga.chapters %></:item>
+  <:item title="Volumes"><%= @manga.volumes %></:item>
+</.list>
+
+<.back navigate={~p"/"}>Back to mangas</.back>
+
+<.modal :if={@live_action == :edit} id="manga-modal" show on_cancel={JS.patch(~p"/mangas/#{@manga}")}>
+  <.live_component
+    module={ProgressTrackerWeb.MangaLive.FormComponent}
+    id={@manga.id}
+    title={@page_title}
+    action={@live_action}
+    manga={@manga}
+    patch={~p"/mangas/#{@manga}"}
+  />
+</.modal>
