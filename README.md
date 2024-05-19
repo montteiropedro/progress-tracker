@@ -1,18 +1,35 @@
-# ProgressTracker
+# Progress Tracker
 
-To start your Phoenix server:
+<div style="display: flex; gap: .5rem;">
+  <a href="https://docs.docker.com/">
+    <img src="https://img.shields.io/badge/docker-blue?style=for-the-badge&logo=docker&logoColor=white"/>
+  </a>
+  <a href="https://elixir-lang.org/">
+    <img src="https://img.shields.io/badge/elixir-purple?style=for-the-badge&logo=elixir&logoColor=white"/>
+  </a>
+  <a href="https://www.postgresql.org/docs/">
+    <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white">
+  </a>
+  <p>
+    <img src="https://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=RED&style=for-the-badge"/>
+  </p>
+</div>
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Requirements
+  - [Docker](https://www.docker.com)
+
+## Start the application
+To start your Phoenix server, all you have to do is run a docker compose command on your terminal:
+
+```
+docker compose up
+```
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Run tests
+After the application has started, run:
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```bash
+docker compose exec app bash -c "mix test"
+```
