@@ -14,6 +14,13 @@ defmodule ProgressTrackerWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/auth", ProgressTrackerWeb do
+    pipe_through :browser
+
+    get "/", AuthController, :request
+    get "/callback", AuthController, :callback
+  end
+
   scope "/", ProgressTrackerWeb do
     pipe_through :browser
 

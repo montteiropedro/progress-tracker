@@ -58,7 +58,8 @@ defmodule ProgressTracker.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
-      {:assent, "~> 0.2.9"}
+      {:assent, "~> 0.2.9"},
+      {:req, "~> 0.4.0"},
     ]
   end
 

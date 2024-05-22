@@ -5,8 +5,13 @@ defmodule ProgressTrackerWeb.MangaLive.Index do
   alias ProgressTracker.Mangas.Manga
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, stream(socket, :mangas, Mangas.list_mangas())}
+  def mount(_params, session, socket) do
+    socket =
+      socket
+      |> assign(:current_user, session["discord_user"])
+      |> stream(:mangas, Mangas.list_mangas())
+
+    {:ok, socket}
   end
 
   @impl true
